@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { ANIMALS } from "@frontendmasters/pet";
+import useDropdown from "./useDropdown"; //using custom hook
 
 const SearchParams = () => {
   const [location, setLocation] = useState("Seattle, WA");
-  const [animal, setAnimal] = useState("dog");
-  const [breed, setBreed] = useState("");
-  const [breeds, setBreeds] = useState([]);
+  const [breeds, setBreeds] = useState([]); //dynamically change the breeds when animal is changed
+  const [animal, AnimalDropdown] = useDropdown("Animal", "dog", ANIMALS);
+  const [breed, BreedDropdown] = useDropdown("Breed", "", breeds);
+  // const [animal, setAnimal] = useState("dog");
+  // const [breed, setBreed] = useState("");
   return (
     <div className="search-params">
       <form>
@@ -19,7 +22,7 @@ const SearchParams = () => {
           />
         </label>
 
-        <label htmlFor="animal">
+        {/* <label htmlFor="animal">
           Animal
           <select
             id="animal"
@@ -50,7 +53,10 @@ const SearchParams = () => {
               {breedString}
             </option>
           ))}
-        </select>
+        </select> */}
+
+        <AnimalDropdown />
+        <BreedDropdown />
         <button>Submit</button>
       </form>
     </div>
